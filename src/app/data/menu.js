@@ -196,6 +196,71 @@ export const DRINKS = [
   },
 ];
 
+// ZULA desserts — the Halo-Halo / ube sweet side.
+export const DESSERTS = [
+  {
+    id: "ube-halo-halo",
+    name: "Ube Halo-Halo",
+    line: "Signature Dessert",
+    price: 550,
+    emoji: "🍧",
+    desc: "Shaved ice, ube, leche flan & jellies — the ZULA icon.",
+    moods: ["cute", "happy", "normal", "low"],
+    signature: true,
+  },
+  {
+    id: "ube-roll",
+    name: "Ube Roll Cake",
+    line: "Dessert",
+    price: 380,
+    emoji: "🍰",
+    desc: "Soft chiffon rolled around silky ube cream.",
+    moods: ["cute", "normal", "low"],
+    signature: true,
+  },
+  {
+    id: "leche-flan",
+    name: "Leche Flan",
+    line: "Dessert",
+    price: 320,
+    emoji: "🍮",
+    desc: "Silky caramel custard, Filipino-style.",
+    moods: ["low", "tired", "normal"],
+  },
+  {
+    id: "matcha-basque",
+    name: "Matcha Basque Cheesecake",
+    line: "Dessert",
+    price: 450,
+    emoji: "🧀",
+    desc: "Burnt-top cheesecake with ceremonial matcha.",
+    moods: ["happy", "normal", "cute"],
+    signature: true,
+  },
+  {
+    id: "biko",
+    name: "Biko",
+    line: "Dessert",
+    price: 300,
+    emoji: "🍚",
+    desc: "Warm coconut sticky rice with a caramel top.",
+    moods: ["low", "tired"],
+  },
+];
+
+// Desserts that fit a given mood, signatures first.
+export function dessertsForMood(moodId) {
+  return DESSERTS.filter((d) => d.moods.includes(moodId)).sort(
+    (a, b) => (b.signature ? 1 : 0) - (a.signature ? 1 : 0)
+  );
+}
+
+// The single dessert we pair with a mood — first signature match.
+export function dessertForMood(moodId) {
+  const matches = dessertsForMood(moodId);
+  return matches.find((d) => d.signature) || matches[0] || DESSERTS[0];
+}
+
 // Drinks that fit a given mood, signatures first.
 export function drinksForMood(moodId) {
   return DRINKS.filter((d) => d.moods.includes(moodId)).sort(
