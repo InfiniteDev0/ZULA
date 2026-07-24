@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { specialForMood, moodById } from "../data/menu";
+import { specialForMood, moodById, DEFAULT_MOOD_ID } from "../data/menu";
 import Header from "./Header";
 import Welcome from "./steps/Welcome";
 import MoodStep from "./steps/MoodStep";
@@ -29,8 +29,16 @@ export default function ZulaApp() {
   const moodObj = mood ? moodById(mood) : null;
   const special = mood ? specialForMood(mood) : null;
 
+  // The whole page adopts the mood colour (defaults to Normal).
+  // The welcome screen keeps its own background image instead.
+  const pageColor = (moodObj ?? moodById(DEFAULT_MOOD_ID)).color;
+  const paintPage = step !== "welcome";
+
   return (
-    <main className="w-full h-dvh flex justify-center overflow-hidden">
+    <main
+      className="w-full h-dvh flex justify-center overflow-hidden transition-colors duration-500"
+      style={{ backgroundColor: paintPage ? pageColor : undefined }}
+    >
       <div className="w-full max-w-md h-full flex flex-col">
 
         {step === "welcome" && (

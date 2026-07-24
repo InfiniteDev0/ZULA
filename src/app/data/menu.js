@@ -102,7 +102,7 @@ export const DRINKS = [
     price: 420,
     emoji: "🧋",
     desc: "Creamy taro with chewy pearls. Pure comfort.",
-    moods: ["cute", "low", "calm"],
+    moods: ["cute", "low", "normal"],
   },
 
   // ---- Thai-inspired comfort ----
@@ -122,7 +122,7 @@ export const DRINKS = [
     price: 460,
     emoji: "🥥",
     desc: "Cold brew, coconut cream, a whisper of palm sugar.",
-    moods: ["tired", "calm"],
+    moods: ["tired", "normal"],
     signature: true,
   },
   {
@@ -143,7 +143,7 @@ export const DRINKS = [
     price: 450,
     emoji: "🍵",
     desc: "Ceremonial matcha, cold milk, clean and grassy.",
-    moods: ["calm", "cute"],
+    moods: ["normal", "cute"],
   },
   {
     id: "matcha-ube-swirl",
@@ -152,7 +152,7 @@ export const DRINKS = [
     price: 500,
     emoji: "🌀",
     desc: "Green matcha meets purple ube. The photo everyone takes.",
-    moods: ["cute", "happy", "calm"],
+    moods: ["cute", "happy", "normal"],
     signature: true,
   },
   {
@@ -192,7 +192,7 @@ export const DRINKS = [
     price: 400,
     emoji: "🫧",
     desc: "Cold brew over tonic and citrus. Sharp and awake.",
-    moods: ["tired", "calm"],
+    moods: ["tired", "normal"],
   },
 ];
 
@@ -212,5 +212,8 @@ export function specialForMood(moodId) {
 export function moodById(moodId) {
   return MOODS.find((m) => m.id === moodId);
 }
+
+// The mood the page defaults to before the guest picks anything.
+export const DEFAULT_MOOD_ID = "normal";
 
 export const CURRENCY = "KES";
