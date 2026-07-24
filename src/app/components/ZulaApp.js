@@ -69,7 +69,7 @@ export default function ZulaApp() {
             onNext={() => set({ step: "order" })}
           />
         )}
-
+{/* 
         {step === "order" && drink && (
           <OrderStep
             firstName={firstName}
@@ -92,7 +92,7 @@ export default function ZulaApp() {
             onSubmit={() => set({ reviewed: true })}
             onRestart={() => setState(INITIAL)}
           />
-        )}
+        )} */}
       </div>
     </main>
   );
