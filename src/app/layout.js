@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import FlowProvider from "./providers/FlowProvider";
 
 // Brand display font — Tanker, a single-weight fat display face.
 const tanker = localFont({
@@ -33,7 +34,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${tanker.variable} ${outfit.variable} h-full antialiased`}
     >
-      <body className="h-full overflow-hidden flex flex-col ">{children}</body>
+      <body className="h-full overflow-hidden flex flex-col ">
+        <FlowProvider>{children}</FlowProvider>
+      </body>
     </html>
   );
 }
