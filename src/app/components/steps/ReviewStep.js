@@ -3,7 +3,7 @@ import PrimaryButton from "../ui/PrimaryButton";
 // Step 4 — collect a star rating + note, then show the thank-you / community card.
 export default function ReviewStep({
   firstName,
-  drink,
+  cart = [],
   rating,
   setRating,
   reviewText,
@@ -12,6 +12,8 @@ export default function ReviewStep({
   onSubmit,
   onRestart,
 }) {
+  const orderName =
+    cart.length === 1 ? cart[0].name : `${cart.length} treats`;
   if (reviewed) {
     return (
       <section className="animate-pop flex flex-col gap-6 items-center text-center pt-8">
@@ -43,7 +45,7 @@ export default function ReviewStep({
         <div className="text-5xl mb-2">✅</div>
         <h2 className="font-display text-cream text-3xl">Order placed!</h2>
         <p className="text-cream/70 mt-2">
-          While we craft your {drink?.name}, how was ZULA today?
+          While we craft your {orderName}, how was ZULA today?
         </p>
       </div>
 

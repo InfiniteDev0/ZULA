@@ -26,8 +26,12 @@ export default function MenuPage() {
       firstName={firstName}
       moodObj={moodObj}
       special={special}
-      onSelect={(drink) => set({ drink })}
-      onNext={() => router.push("/order")}
+      initialSelected={state.cart.map((i) => i.id)}
+      onConfirm={(items) => {
+        set({ cart: items });
+        router.push("/order");
+      }}
+      onFullMenu={() => router.push("/full-menu")}
     />
   );
 }

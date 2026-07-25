@@ -15,7 +15,7 @@ const STORAGE_KEY = "zula-flow";
 const INITIAL = {
   name: "",
   mood: null,
-  drink: null,
+  cart: [], // items the guest selected to order
   rating: 0,
   reviewText: "",
   reviewed: false,

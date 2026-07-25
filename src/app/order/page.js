@@ -9,13 +9,14 @@ import OrderStep from "../components/steps/OrderStep";
 export default function OrderPage() {
   const router = useRouter();
   const { state } = useFlow();
+  const empty = state.cart.length === 0;
 
-  // No drink chosen yet? Back to the menu.
+  // Nothing selected yet? Back to the menu.
   useEffect(() => {
-    if (!state.drink) router.replace("/menu");
-  }, [state.drink, router]);
+    if (empty) router.replace("/menu");
+  }, [empty, router]);
 
-  if (!state.drink) return null;
+  if (empty) return null;
 
   const moodObj = moodById(state.mood);
   const firstName = state.name.trim().split(" ")[0] || "friend";
@@ -23,7 +24,7 @@ export default function OrderPage() {
   return (
     <OrderStep
       firstName={firstName}
-      drink={state.drink}
+      cart={state.cart}
       moodObj={moodObj}
       onBack={() => router.push("/menu")}
       onPlace={() => router.push("/review")}

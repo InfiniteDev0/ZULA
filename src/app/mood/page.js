@@ -13,7 +13,7 @@ export default function MoodPage() {
     <MoodStep
       firstName={firstName}
       selected={state.mood}
-      onPick={(mood) => set({ mood, drink: null })}
+      onPick={(mood) => set({ mood, cart: [] })}
       onNext={() => router.push("/menu")}
     />
   );

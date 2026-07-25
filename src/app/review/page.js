@@ -12,7 +12,7 @@ export default function ReviewPage() {
   return (
     <ReviewStep
       firstName={firstName}
-      drink={state.drink}
+      cart={state.cart}
       rating={state.rating}
       setRating={(rating) => set({ rating })}
       reviewText={state.reviewText}
