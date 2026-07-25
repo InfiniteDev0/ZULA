@@ -2,19 +2,21 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ShoppingBag, X } from "lucide-react";
+import { ChevronDown, ShoppingBag } from "lucide-react";
 import { useFlow } from "../providers/FlowProvider";
 import {
   SECTIONS,
   ALL_ITEMS,
   itemsForSection,
   specialForMood,
+  todaySpecialLabel,
   moodById,
   DEFAULT_MOOD_ID,
 } from "../data/menu";
 import { money } from "../lib/format";
 import Carousel from "../components/ui/Carousel";
 import FlipText from "../components/ui/FlipText";
+import OrderSheet from "../components/OrderSheet";
 
 export default function FullMenuPage() {
   const router = useRouter();
@@ -25,6 +27,9 @@ export default function FullMenuPage() {
 
   // Build each section's items; lead the Specials section with the mood pick.
   const sections = SECTIONS.map((sec) => {
+    // Today's Special carousel: subtitle is the weekday nickname.
+    const base =
+      sec.id === "specials" ? { ...sec, subtitle: todaySpecialLabel() } : sec;
     let items = itemsForSection(sec.id).map((i) => ({ ...i, tint: moodObj.color }));
     if (sec.id === "specials" && special) {
       items = [
@@ -32,7 +37,7 @@ export default function FullMenuPage() {
         ...items.filter((i) => i.id !== special.id),
       ];
     }
-    return { ...sec, items };
+    return { ...base, items };
   });
 
   const scrollRef = useRef(null);
@@ -54,9 +59,6 @@ export default function FullMenuPage() {
     });
   };
 
-  const removeFromCart = (id) =>
-    set({ cart: state.cart.filter((c) => c.id !== id) });
-
   // Scroll-spy: flip the header to whichever section is at the top.
   const onScroll = () => {
     const cont = scrollRef.current;
@@ -75,9 +77,9 @@ export default function FullMenuPage() {
   };
 
   return (
-    <section className="relative h-full flex flex-col bg-[#170021] text-white">
+    <section className="relative h-full flex flex-col bg-[#0d0012] text-white">
       {/* Header — title + subtitle flip with the current section */}
-      <header className="shrink-0 flex items-start justify-between p-5">
+      <header className="shrink-0 flex items-start justify-between bg-black p-5">
         <div className="flex flex-col">
           <button
             onClick={() => setMenuOpen((o) => !o)}
@@ -88,7 +90,7 @@ export default function FullMenuPage() {
               className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}
             />
           </button>
-          <FlipText className="text-sm text-white/60">
+          <FlipText className="text-sm text-purple-500">
             {sections[active].subtitle}
           </FlipText>
         </div>
@@ -126,7 +128,7 @@ export default function FullMenuPage() {
             }}
             className="pt-6"
           >
-            <h2 className="px-5 mb-3 text-lg display-lg font-semibold text-white/90">
+            <h2 className="px-5 mb-3 text-lg display-lg tracking-wide">
               {sec.title}
             </h2>
             <Carousel
@@ -141,68 +143,25 @@ export default function FullMenuPage() {
         ))}
       </div>
 
-      {/* Floating basket (no shadow) */}
+      {/* Floating basket → open the review sheet */}
       {state.cart.length > 0 && !sheetOpen && (
         <button
           onClick={() => setSheetOpen(true)}
           className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30
-            flex items-center justify-center gap-3 rounded-full px-6 py-3 font-semibold text-white bg-purple-500/50 w-3/4 backdrop-blur-lg"
+            flex items-center justify-center gap-3 rounded-full px-6 py-3 font-semibold text-white bg-black w-3/4"
         >
           <ShoppingBag size={18} />
           {state.cart.length} · {money(total)}
         </button>
       )}
 
-      {/* Order sheet */}
-      {sheetOpen && (
-        <div className="absolute inset-0 z-40 flex flex-col justify-end">
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setSheetOpen(false)}
-          />
-          <div className="relative bg-white text-neutral-900 rounded-t-3xl p-5 max-h-[75%] flex flex-col animate-rise">
-            <div className="w-10 h-1.5 bg-neutral-300 rounded-full mx-auto mb-4" />
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="display-md">Your basket</h3>
-              <button onClick={() => setSheetOpen(false)} aria-label="Close">
-                <X />
-              </button>
-            </div>
-
-            <div className="flex-1 min-h-0 overflow-y-auto zula-scroll divide-y divide-neutral-100">
-              {state.cart.map((item) => (
-                <div key={item.id} className="flex items-center gap-3 py-3">
-                  <span className="text-2xl">{item.emoji}</span>
-                  <div className="flex-1">
-                    <p className="font-semibold leading-tight">{item.name}</p>
-                    <p className="text-neutral-500 text-xs">{money(item.price)}</p>
-                  </div>
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="text-neutral-400 hover:text-neutral-700 p-1"
-                    aria-label={`Remove ${item.name}`}
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t border-neutral-200 mt-2 pt-3 flex items-center justify-between">
-              <span className="display-md">Total</span>
-              <span className="display-md">{money(total)}</span>
-            </div>
-
-            <button
-              onClick={() => router.push("/order")}
-              className="mt-4 w-full rounded-full py-4 text-lg font-semibold text-white"
-              style={{ background: moodObj.color }}
-            >
-              Place order 
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Review sheet → continue to the order page */}
+      <OrderSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        onContinue={() => router.push("/order")}
+        accent={moodObj.color}
+      />
     </section>
   );
 }

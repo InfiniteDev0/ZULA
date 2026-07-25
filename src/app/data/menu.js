@@ -156,13 +156,28 @@ export const DEFAULT_MOOD_ID = "normal";
 // Full-menu sections, in scroll order. The header title + subtitle flip to
 // match whichever section is in view.
 export const SECTIONS = [
-  { id: "specials", title: "Our Specials", subtitle: "Our purple makes u feel better" },
+  { id: "specials", title: "Today's Special", subtitle: "Our purple makes u feel better" },
   { id: "matcha", title: "Matcha", subtitle: "Green, grassy, and grounding" },
   { id: "desserts", title: "Desserts", subtitle: "Sweet endings, ZULA-style" },
   { id: "halohalo", title: "Halo-Halo", subtitle: "Ice, ube, and everything nice" },
   { id: "coffee", title: "Coffee", subtitle: "Specialty shots & source stories" },
   { id: "tea", title: "Tea", subtitle: "Thai-inspired, brewed cold" },
 ];
+
+// A playful nickname for each weekday (index = Date.getDay(), Sun = 0).
+export const DAY_SPECIALS = [
+  "Slow Sunday",
+  "Monday Special",
+  "Taro Tuesday",
+  "Wellness Wednesday",
+  "Thirsty Thursday",
+  "Feel-Good Friday",
+  "Sweet Saturday",
+];
+
+export function todaySpecialLabel() {
+  return DAY_SPECIALS[new Date().getDay()];
+}
 
 export const ALL_ITEMS = [...DRINKS, ...DESSERTS];
 
