@@ -19,6 +19,7 @@ export default function Welcome({ onNext }) {
   const now = new Date();
   const dayName = now.toLocaleDateString("en-US", { weekday: "long" });
   const special = DAY_SPECIALS[now.getDay()];
+  const isTuesday = now.getDay() === 2;
 
   return (
     <section
@@ -33,9 +34,17 @@ export default function Welcome({ onNext }) {
 
       </div>
 
+      {isTuesday && (
+        <div className="w-full flex justify-center mt-6 px-3">
+          <span className="bg-white text-purple-700 rounded-full px-5 py-2 text-sm font-semibold text-center shadow-lg">
+            🎉 It&apos;s Taro Tuesday — buy 3, get 1 free!
+          </span>
+        </div>
+      )}
+
       <Button
         onClick={onNext}
-        className="absolute bottom-20 left-1/2 -translate-x-1/2 h-15 bg-white text-black display-2xl text-3xl hover:bg-white rounded-full w-70 trans"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 h-15 bg-white text-black display-2xl text-3xl hover:bg-white rounded-full w-70 trans"
       >
         View Our Menu
       </Button>

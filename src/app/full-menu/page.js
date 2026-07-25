@@ -17,6 +17,7 @@ import { money } from "../lib/format";
 import Carousel from "../components/ui/Carousel";
 import FlipText from "../components/ui/FlipText";
 import OrderSheet from "../components/OrderSheet";
+import Link from "next/link";
 
 export default function FullMenuPage() {
   const router = useRouter();
@@ -94,7 +95,9 @@ export default function FullMenuPage() {
             {sections[active].subtitle}
           </FlipText>
         </div>
-        <img className="w-14" src="/zula.png" alt="ZULA" />
+        <Link href={"/"}>
+          <img className="w-14" src="/zula.png" alt="ZULA" />
+        </Link>
       </header>
 
       {/* Section jump menu */}
@@ -148,7 +151,7 @@ export default function FullMenuPage() {
         <button
           onClick={() => setSheetOpen(true)}
           className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30
-            flex items-center justify-center gap-3 rounded-full px-6 py-3 font-semibold text-white bg-black w-3/4"
+            flex items-center justify-center gap-3 rounded-full px-6 py-3 font-semibold text-white bg-purple-500/50 backdrop-blur-lg w-3/4"
         >
           <ShoppingBag size={18} />
           {state.cart.length} · {money(total)}
