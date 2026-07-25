@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useFlow } from "../providers/FlowProvider";
 import { moodById, DEFAULT_MOOD_ID } from "../data/menu";
 import { Highlighter } from "@/components/ui/highlighter";
 import OrderTicket from "../components/OrderTicket";
 
-const PURPLE_BGS = ["/purple1.jpg", "/purple2.jpg", "/purple3.jpg", "/purple4.jpg"];
-const BG_KEY = "zula-order-bg";
 
 export default function OrderPage() {
   const router = useRouter();
@@ -20,19 +18,7 @@ export default function OrderPage() {
     if (empty) router.replace("/full-menu");
   }, [empty, router]);
 
-  // Assign one random purple background per user, then keep it.
-  const [bg] = useState(() => {
-    try {
-      let saved = localStorage.getItem(BG_KEY);
-      if (!saved) {
-        saved = PURPLE_BGS[Math.floor(Math.random() * PURPLE_BGS.length)];
-        localStorage.setItem(BG_KEY, saved);
-      }
-      return saved;
-    } catch {
-      return PURPLE_BGS[0];
-    }
-  });
+  const bg = "/purple2.jpg";
 
   if (empty) return null;
 

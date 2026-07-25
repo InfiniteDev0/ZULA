@@ -89,7 +89,7 @@ export default function OrderTicket({ cart, total, name, mood }) {
               </div>
               <Button
                 onClick={() => router.push("/full-menu")}
-                className={"w-full"}
+                className={"w-full display-lg text-lg h-10 tracking-wider"}
               >
                 Change Order
               </Button>
@@ -101,12 +101,11 @@ export default function OrderTicket({ cart, total, name, mood }) {
             {/* tear line + side notches */}
             <span className="absolute -top-[3px] left-0 right-0 mx-auto w-[90%] h-[6px] bg-[repeating-linear-gradient(to_right,#cbb8e0_0_10px,transparent_10px_20px)]" />
             <div className="flex  gap-2 flex-col items-center justify-center w-full">
-              
               <Button
                 onClick={() => router.push("/community")}
-                className={"w-full bg-purple-700"}
+                className={"w-full bg-purple-700 display-lg text-lg h-10 tracking-wider"}
               >
-               Order Made
+                Order Made
               </Button>
             </div>
           </div>
