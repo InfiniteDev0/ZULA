@@ -8,12 +8,13 @@ export default function CommunityPage() {
   return (
     <section className="h-full flex flex-col gap-10 bg-[#0d0012] text-white">
       {/* content coming next */}
-      <div className="bg-black fixed w-full rounded-b-2xl  p-3">
+      <div className="flex flex-col gap-1 items-center justify-center w-full rounded-b-2xl  p-3">
+        <img src="/zula.png" className="w-20" alt="" />
         <h1 className="display-md text-center">
           Join our Community as you wait <br /> for your order
         </h1>
       </div>
-      <div className="pt-30  p-5 flex flex-col gap-5">
+      <div className="p-5 flex flex-col gap-5">
         {/* our socials  buttons*/}
         <Highlighter
           color="#d274f7"
@@ -44,15 +45,15 @@ export default function CommunityPage() {
             <img src="/insta.png" alt="" />
             <div className=" justify-end flex flex-col items-end">
               <h1 className="display-md text-xl">Join our Instagram</h1>
-              <p className="text-sm">Start a streak with our community</p>
+              <p className="text-sm">The Zula Verse awaits you</p>
             </div>
           </Link>
         </div>
 
-        {/* community photos */}
+        {/* community photos
         <div className="flex items-center justify-center">
           <p className="display-md under tracking-wide">Community gallery</p>
-        </div>
+        </div> */}
       </div>
     </section>
   );
