@@ -77,7 +77,7 @@ export default function FullMenuPage() {
   };
 
   return (
-    <section className="relative h-full flex flex-col bg-[#0d0012] text-white">
+    <section className="relative h-full flex flex-col bg-[#190018] text-white">
       {/* Header — title + subtitle flip with the current section */}
       <header className="shrink-0 flex items-start justify-between bg-black p-5">
         <div className="flex flex-col">
