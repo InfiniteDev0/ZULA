@@ -10,10 +10,11 @@ const INITIAL = {
   name: "",
   mood: null,
   cart: [], // items the guest is choosing
-  placed: false, // once true the order is "with the waiter" and locked
+  placed: false, // once true the order is locked — recheck only, no changes
   rating: 0,
   reviewText: "",
   reviewed: false,
+  history: [], // past placed orders — never cleared
 };
 
 const FlowCtx = createContext(null);
@@ -35,7 +36,9 @@ export default function FlowProvider({ children }) {
   });
 
   const set = (patch) => setState((s) => ({ ...s, ...patch }));
-  const reset = () => setState(INITIAL);
+  // Start a fresh order but keep the order history forever.
+  const reset = () =>
+    setState((s) => ({ ...INITIAL, history: s.history || [] }));
 
   // Persist progress whenever it changes.
   useEffect(() => {

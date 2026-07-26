@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useFlow } from "../providers/FlowProvider";
 import { money } from "../lib/format";
 import { Button } from "./ui/button";
 
@@ -27,8 +28,13 @@ function Barcode() {
 // boarding-pass receipt. The guest shows it to the barista.
 export default function OrderTicket({ cart, total, name, mood }) {
   const router = useRouter();
+  const { state, set } = useFlow();
+  const placed = state.placed;
+
   const [meta] = useState(() => {
-    const code = `ZL-${Math.floor(1000 + Math.random() * 9000)}`;
+    // When rechecking a placed order, reuse the saved code so it matches history.
+    const existing = placed ? state.history?.[0]?.code : null;
+    const code = existing || `ZL-${Math.floor(1000 + Math.random() * 9000)}`;
     const time = new Date().toLocaleString("en-KE", {
       day: "2-digit",
       month: "short",
@@ -37,6 +43,22 @@ export default function OrderTicket({ cart, total, name, mood }) {
     });
     return { code, time };
   });
+
+  // Lock the order and save it to history (once), then head to community.
+  const orderMade = () => {
+    if (!placed) {
+      const record = {
+        code: meta.code,
+        items: cart,
+        total,
+        mood,
+        name,
+        at: Date.now(),
+      };
+      set({ placed: true, history: [record, ...(state.history || [])] });
+    }
+    router.push("/community");
+  };
 
   return (
     <div className="w-full max-w-[360px] mx-auto flex flex-col items-center">
@@ -87,12 +109,14 @@ export default function OrderTicket({ cart, total, name, mood }) {
                 <span className="font-display text-xl">Total</span>
                 <span className="font-display text-xl">{money(total)}</span>
               </div>
-              <Button
-                onClick={() => router.push("/full-menu")}
-                className={"w-full display-lg text-lg h-10 tracking-wider"}
-              >
-                Change Order
-              </Button>
+              {!placed && (
+                <Button
+                  onClick={() => router.push("/full-menu")}
+                  className={"w-full display-lg text-lg h-10 tracking-wider"}
+                >
+                  Change Order
+                </Button>
+              )}
             </div>
           </div>
 
@@ -102,10 +126,10 @@ export default function OrderTicket({ cart, total, name, mood }) {
             <span className="absolute -top-[3px] left-0 right-0 mx-auto w-[90%] h-[6px] bg-[repeating-linear-gradient(to_right,#cbb8e0_0_10px,transparent_10px_20px)]" />
             <div className="flex  gap-2 flex-col items-center justify-center w-full">
               <Button
-                onClick={() => router.push("/community")}
+                onClick={orderMade}
                 className={"w-full bg-purple-700 display-lg text-lg h-10 tracking-wider"}
               >
-                Order Made
+                {placed ? "Order Placed ✓" : "Order Made"}
               </Button>
             </div>
           </div>

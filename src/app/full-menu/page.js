@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ShoppingBag } from "lucide-react";
+import { ChevronDown, Clock, ShoppingBag } from "lucide-react";
 import { useFlow } from "../providers/FlowProvider";
 import {
   SECTIONS,
@@ -18,6 +18,7 @@ import Carousel from "../components/ui/Carousel";
 import FlipText from "../components/ui/FlipText";
 import OrderSheet from "../components/OrderSheet";
 import Link from "next/link";
+import { Button } from "../components/ui/button";
 
 export default function FullMenuPage() {
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function FullMenuPage() {
   const total = state.cart.reduce((sum, c) => sum + c.price, 0);
 
   const toggleCart = (id) => {
+    if (state.placed) return; // order is locked once made — recheck only
     const item = ALL_ITEMS.find((i) => i.id === id);
     if (!item) return;
     set({
@@ -95,8 +97,10 @@ export default function FullMenuPage() {
             {sections[active].subtitle}
           </FlipText>
         </div>
-        <Link href={"/"}>
-          <img className="w-14" src="/zula.png" alt="ZULA" />
+        <Link href={"/history"}>
+          <Button className={"rounded-full"}>
+            History <Clock />
+          </Button>
         </Link>
       </header>
 
