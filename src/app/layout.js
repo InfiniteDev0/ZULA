@@ -34,7 +34,8 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${tanker.variable} ${outfit.variable} h-full antialiased`}
     >
-      <body className="h-full overflow-hidden flex flex-col ">
+      {/* remove overflow-hidden here */}
+      <body className="h-full flex flex-col">
         <ClientRoot>{children}</ClientRoot>
       </body>
     </html>
