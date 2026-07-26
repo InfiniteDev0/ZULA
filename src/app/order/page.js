@@ -32,21 +32,21 @@ export default function OrderPage() {
         px-5 py-6 overflow-y-auto zula-scroll"
       style={{ backgroundImage: `url('${bg}')` }}
     >
-      <div className="text-center">
-        <h1 className="display-lg">Your Order</h1>
-        <p className="display-md">
-          <Highlighter action="underline" color="#000000">
-            show your order to the barista
-          </Highlighter>
-        </p>
-      </div>
 
+      <h1 className="display-lg">Your Order</h1>
       <OrderTicket
         cart={state.cart}
         total={total}
         name={name}
         mood={moodObj.label}
       />
+      <div className="text-center">
+        <p className="display-xl">
+          <Highlighter action="underline" color="#000000">
+            show your order to the barista
+          </Highlighter>
+        </p>
+      </div>
     </section>
   );
 }

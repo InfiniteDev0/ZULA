@@ -5,6 +5,7 @@ import { Highlighter } from "@/components/ui/highlighter";
 import { useFlow } from "../providers/FlowProvider";
 import { Button } from "../components/ui/button";
 import { Copy } from "lucide-react";
+import Link from "next/link";
 
 const SNAPCHAT_URL = "https://www.snapchat.com/add/eatatzula";
 const INSTAGRAM_URL =
@@ -23,7 +24,7 @@ export default function CommunityPage() {
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert(`Copied: ${text}`); // swap with toast if you prefer
+       // swap with toast if you prefer
     } catch (err) {
       console.error("Failed to copy", err);
     }
@@ -35,17 +36,18 @@ export default function CommunityPage() {
       style={{ backgroundImage: "url('/zulapurple.png')" }}
     >
       <div className="flex flex-col gap-1 items-center justify-center w-full rounded-b-2xl p-3">
-        <img src="/zula.png" className="w-20" alt="" />
-        <h1 className="display-md text-center">
+        <Link href={'/'}>
+          <img src="/zula.png" className="w-20" alt="" />
+        </Link>
+        <h1 className="display-lg text-center mt-2">
           Join our Community as you wait <br /> for your order
         </h1>
       </div>
-
       <div className="p-5 flex flex-col gap-5">
         {/* Socials */}
         <Highlighter
           color="#d274f7"
-          className="display-md text-xl"
+          className="display-md text-xl text-white"
           action="underline"
         >
           Leave a review and share your experience
@@ -95,7 +97,7 @@ export default function CommunityPage() {
             Order Again
           </Button>
 
-          <h1 className="display-md mt-3">Payment details</h1>
+          <h1 className="display-md mt-3 text-white">Payment details</h1>
           <div>
             <div className="bg-white p-5 rounded-2xl">
               <p className="display-md">Paybill {"GAB COLLECT"}</p>
