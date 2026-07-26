@@ -75,10 +75,7 @@
 }
 
 html,
-body {
-  height: 100%;
-  overflow: hidden;          /* app never scrolls — everything fits the viewport */
-  overscroll-behavior: none;
+body {     /* app never scrolls — everything fits the viewport */
 }
 
 body {

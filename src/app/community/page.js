@@ -32,7 +32,7 @@ export default function CommunityPage() {
 
   return (
     <section
-      className="h-full flex flex-col gap-10 zula-scroll bg-cover bg-center bg-no-repeat"
+      className=" flex flex-col  gap-10  bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/zulapurple.png')" }}
     >
       <div className="flex flex-col gap-1 items-center justify-center w-full rounded-b-2xl p-3">

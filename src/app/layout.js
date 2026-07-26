@@ -32,10 +32,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${tanker.variable} ${outfit.variable} h-full antialiased`}
+      className={`${tanker.variable} ${outfit.variable}  antialiased`}
     >
       {/* remove overflow-hidden here */}
-      <body className="h-full flex flex-col">
+      <body className="flex flex-col">
         <ClientRoot>{children}</ClientRoot>
       </body>
     </html>

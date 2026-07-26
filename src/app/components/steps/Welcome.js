@@ -23,7 +23,7 @@ export default function Welcome({ onNext }) {
 
   return (
     <section
-      className="h-full flex flex-col px-1 items-start py-2 bg-cover bg-center bg-no-repeat relative"
+      className="flex flex-col px-1 items-start py-2 bg-cover bg-center bg-no-repeat relative"
       style={{ backgroundImage: "url('/bgwelcome.png')" }}
     >
       <img src="/zula.png" className="w-20" alt="" />

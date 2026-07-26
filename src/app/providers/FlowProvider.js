@@ -57,10 +57,10 @@ export default function FlowProvider({ children }) {
   return (
     <FlowCtx.Provider value={{ state, set, reset, moodObj }}>
       <main
-        className="w-full h-dvh flex justify-center transition-colors duration-500"
+        className="w-full  flex justify-center transition-colors duration-500"
         style={{ backgroundColor: isWelcome ? undefined : pageColor }}
       >
-        <div className="w-full max-w-md h-full flex flex-col">{children}</div>
+        <div className="w-full max-w-md  flex flex-col">{children}</div>
       </main>
     </FlowCtx.Provider>
   );
